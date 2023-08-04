@@ -27,23 +27,44 @@ for(let i=0;i<6;i++){
     let newAlienShip = new Ship(shipHull,shipFirepower,shipAccuracy)
     alienBattalian[i]=newAlienShip
 }
-// console.log(`shipHull:${shipHull},\nshipFirepower:${shipFirepower},\nshipAccuracy:${shipAccuracy}\n`)
 
 console.log(alienBattalian)
 
-/* 1.4 battle round
-// player attack the first alien ship
-// If the ship survives, it attacks player
-// If player survive, player attack the ship again
-// If it survives, it attacks player again ... etc
-// If player destroy the ship, player have the option to attack the next ship or to retreat
-// If player retreat, the game is over, perhaps leaving the game open for further developments or options */
+// 1.4 battle round //
+function initiateRound(player,opponents){
+    let currentPlayer=player
+    let currentOpponent = opponents[0]
+    // player attack the first alien ship
+    console.log(`At the beginning of this round the player's hull is ${currentPlayer.hull}`)
+    console.log(`At the beginning of this round the alien's hull is ${currentOpponent.hull}`)
+    Math.random() < currentPlayer.accuracy ? currentOpponent.hull-=currentPlayer.firepower : null
+    console.log(`After round the alien's hull is ${currentOpponent.hull}`)
+    console.log(`After round the player's hull is ${currentPlayer.hull}\n`)
+    // If the ship survives, it attacks player
+    if(currentOpponent.hull >= 0){
+        console.log(`After round the player's hull is ${currentPlayer.hull}`)
+        console.log(`At the beginning of this round the player's hull is ${currentPlayer.hull}`)
+        Math.random() < currentOpponent.accuracy ? currentPlayer.hull-=currentOpponent.firepower : null
+        console.log(`At the beginning of this round the alien's hull is ${currentOpponent.hull}`)
+        console.log(`After round the alien's hull is ${currentOpponent.hull}\n`)
+        initiateRound(currentPlayer,opponents)
+    }else if(currentPlayer.hull <= 0){
+        console.log(`You've lost the game`)
+    }else{
+        opponents.shift()
+        console.log(`After round the player's hull is ${currentPlayer.hull}`)
+        console.log(`At the beginning of this round the player's hull is ${currentPlayer.hull}`)
+        console.log(`At the beginning of this round the alien's hull is ${currentOpponent.hull}`)
+        console.log(`After round the alien's hull is ${currentOpponent.hull}\n`)
+        // If player destroy the ship, player have the option to attack the next ship or to retreat
+        let retreatOption = window.prompt(`If you'd like to retreat type, "retreat."`)
+        // If player retreats, the game is over, perhaps leaving the game open for further developments or options
+        retreatOption == `retreat` ? console.log(`You've retreated to safety`) :
+        // player win the game if player destroy all of the aliens
+        opponents.length > 0 ? initiateRound(currentPlayer,opponents) : console.log(`You've won the game`)
+        // player loses the game if player are destroyed
+        // console.log(xxx)
+    }
+}
 
-// player win the game if player destroy all of the aliens
-// player lose the game if player are destroyed
-
-// Example use of accuracy to determine a hit:
-
-//     if (Math.random() < alien[0].accuracy) {
-//     	console.log('player have been hit!');
-//     }
+initiateRound(USSAssembly,alienBattalian)
