@@ -1,33 +1,31 @@
 .bodyContainer{
     display: flex;
-   
     justify-content: space-between;
     height: 100vh;
     width: 100vw;
     margin: 0 auto;
-    font-family: 'Share Tech Mono', monospace;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
     background-size: 100%;
     background-color: black;
     color: white;
 }
+
 *{
     margin: 0;
     padding: 0;
 }
 
 .mainCharacterView{
-
-width: 50%;
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-align-items: center;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
-.left{
 
-}
-.right{
-    
+p{
+    line-height:2rem;
 }
 
 .nameBox{
@@ -38,10 +36,10 @@ align-items: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2em;
+    font-size: 2rem;
     box-shadow: 0px 0px 20px 10px white;
-
 }
+
 .playerImage{
     border: 1px solidblack;
     width: 30vw;
@@ -51,24 +49,24 @@ align-items: center;
     background-position: center;
     background-repeat: no-repeat;
     box-shadow: 0px 0px 20px 10px white;
-    
-
-    
 }
+
 .playerStats{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solidblack;
+    border: 1px solid black;
     width: 15vw;
     height: 15vh;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.5rem;
     box-shadow: 0px 0px 20px 10px white;
     border-radius: 2%;
-
+    min-width:fit-content;
 
 }
+
 .enemyImage{
     border: 1px solidblack;
     width: 30vw;
@@ -78,20 +76,60 @@ align-items: center;
     background-position: center;
     background-repeat: no-repeat;
     box-shadow: 0px 0px 20px 10px white;
-    
-
-    
 }
+
 .enemyStats{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solidblack;
+    border: 1px solid black;
     width: 15vw;
     height: 15vh;
     text-align: center;
     font-family: 'Share Tech Mono', monospace;
     font-size: 1.5em;
     box-shadow: 0px 0px 20px 10px white;
-
+    min-width:fit-content;
+}
+#popup{
+    position: absolute;
+    display: flex;
+    flex: column nowrap;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width:50vw;
+    min-height:50vh;
+    box-shadow: 0px 0px 20px 10px white;
+    background-color: lightgray;
+}
+#interaction{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding:3rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+button{
+    font-size:1.2rem;
+    min-width:100px;
+    padding:1rem 1.5rem;
+    border-radius: 20px;
+    border:0px;
+    font-weight:bold;
+    margin:0 1rem;
+}
+.buttonWrapper{
+    padding:2rem 0;
+    display: flex;
+    flex-direction: row;
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+.displayNone{
+    display:none;
 }

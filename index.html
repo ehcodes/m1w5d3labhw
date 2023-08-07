@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,37 +10,54 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
-
 <body>
+    <div id="popup" class="">
+        <div id="interaction" class="">
+            <p id="interactionMSG">
+                Earth has been attacked by a horde of aliens! You are the captain of the USS Assembly, on a mission to destroy every last alien ship.
+                <br>
+                <br>
+                Battle the aliens as you try to destroy them with your lasers.
+                <br>
+                <br>
+                There are ${alienBattalian.length} alien ships. The aliens' weakness is that they are too logical and attack one at a time: they will wait to see the outcome of a battle before deploying another alien ship. Your strength is that you have the initiative and get to attack first. However, you do not have targeting lasers and can only attack the aliens in order. After you have destroyed a ship, you have the option to make a hasty retreat.
+            </p>
+            <div class="buttonWrapper">
+                <button id="contBtn">Continue</button>
+                <button id="retreatBtn">Retreat</button>
+            </div>
+        </div>
+    </div>
     <div class="bodyContainer">
         <div class="mainCharacterView left">
             <div class="nameBox">
-                USS Schwarzenegger
+                USS Assembly
             </div>
             <div class="playerImage">
 
             </div>
             <div class="playerStats">
-                Hull : 15 <br>
-                FirePower : 5 <br>
-                Accuracy : .7 <br>
+                <p id="playerHull"></p>
+                <p id="playerFirepower"></p>
+                <p id="playerAccuracy"></p>
             </div>
         </div>
         <div class="mainCharacterView right">
             <div class="nameBox">
-                Enemy
+                Current Enemy
             </div>
             <div class="enemyImage">
 
             </div>
             <div class="enemyStats">
-                Hull : 6 <br>
-                FirePower : 3 <br>
-                Accuracy : .6 <br>
+                <p id="enemyHull"></p>
+                <p id="enemyFirepower"></p>
+                <p id="enemyAccuracy"></p>
             </div>
         </div>
     </div>
-    <script src="app.js"></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
