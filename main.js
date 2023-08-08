@@ -1,10 +1,11 @@
 $(document).ready(function() {
     // create a ship class
     class Ship{
-        constructor(hull,firepower,accuracy){
+        constructor(hull,firepower,accuracy,name){
             this.hull = hull
             this.firepower = firepower
             this.accuracy = accuracy
+            this.name = name
         }
     }
 
@@ -19,7 +20,8 @@ $(document).ready(function() {
         let shipHull = (Math.random()*(6-3))+3
         let shipFirepower = (Math.random()*(4-2))+2
         let shipAccuracy = (Math.random()*(.8-.6))+.6
-        let newAlienShip = new Ship(shipHull,shipFirepower,shipAccuracy)
+        let name = i+1
+        let newAlienShip = new Ship(shipHull,shipFirepower,shipAccuracy,name)
         alienBattalian[i]=newAlienShip
     }
 
@@ -32,14 +34,6 @@ $(document).ready(function() {
     let enemyHull = document.querySelector(`#enemyHull`)
     let enemyFirepower = document.querySelector(`#enemyFirepower`)
     let enemyAccuracy = document.querySelector(`#enemyAccuracy`)
-
-    // // add stats to the DOM
-    // playerHull.innerText = `Hull: ${String(USSAssembly.hull).slice(0,4)}`
-    // playerFirepower.innerText = `Firepower: ${String(USSAssembly.firepower).slice(0,4)}`
-    // playerAccuracy.innerText = `Accuracy: ${String(USSAssembly.accuracy).slice(0,4)}`
-    // enemyHull.innerText = `Hull: ${String(alienBattalian[0].hull).slice(0,4)}`
-    // enemyFirepower.innerText = `Firepower: ${String(alienBattalian[0].firepower).slice(0,4)}`
-    // enemyAccuracy.innerText = `Accuracy: ${String(alienBattalian[0].accuracy).slice(0,4)}`
 
     let interactionMSG = document.querySelector(`#interactionMSG`)
     let buttonWrapper = document.querySelector(`#buttonWrapper`)
@@ -55,7 +49,7 @@ $(document).ready(function() {
         initiateRound(USSAssembly,alienBattalian)
     })
     attackButton.addEventListener('click',()=>{
-        attackOpponent(currentPlayer,currentOpponent)
+        attackOpponent(USSAssembly,alienBattalian[0])
     })
     retreatButton.addEventListener('click',()=>{
         interactionMSG.innerText = `Now that you've retreated, the aliens will continue their path to Earth domination.`
@@ -81,24 +75,34 @@ $(document).ready(function() {
     function attackOpponent(currentPlayer,currentOpponent){
         if(Math.random() < currentPlayer.accuracy){
             currentOpponent.hull-=currentPlayer.firepower
+        }else{
+            interactionMSG.innerText = `You missed the mark, better luck next time`
         }
         if(currentOpponent.hull >= 0 && currentPlayer.hull >= 0){
             attackPlayer(currentPlayer,currentOpponent)
         }else{
-            opponents.shift()
-            interactionMSG.innerText = `You've defeated your opponent, just ${opponents.length} more to secure Earth's safety!`
+            alienBattalian.shift()
+            interactionMSG.innerText = `You've defeated your opponent, just ${alienBattalian.length} more to secure Earth's safety from the alien horde!`
             retreatButton.classList.remove(`displayNone`)
-            // player win the game if player destroy all of the aliens
-            opponents.length > 0 ? initiateRound(currentPlayer,opponents) : interactionMSG.innerText = `You've defeated the aliens and secured Earth's safety!`
-            // player loses the game if player are destroyed
+            if(alienBattalian.length > 0){
+                initiateRound(currentPlayer,alienBattalian)
+            }else{
+                interactionMSG.innerText = `You've defeated the aliens and secured Earth's safety!`
+                attackButton.classList.add(`displayNone`)
+                retreatButton.classList.add(`displayNone`)
+                newGameButton.classList.remove(`displayNone`)
+            }
             if(currentPlayer.hull <= 0){
                 interactionMSG.innerText = `Now that you've been defeated, the remaining aliens will continue their path to Earth domination.`
             }
         }
     }
+
     function attackPlayer(player,opponent){
         if(Math.random() < opponent.accuracy){
-            player.hull-=opponent.firepower
+            return player.hull-=opponent.firepower
+        }else{
+            return interactionMSG.innerText = `They missed!`
         }
     }
 
@@ -108,10 +112,8 @@ $(document).ready(function() {
         let currentPlayer = player
         let currentOpponent = opponents[0]
         updateStats(currentPlayer,currentOpponent)
-        // player may attack the first alien ship
         attackButton.classList.remove(`displayNone`)
         retreatButton.classList.remove(`displayNone`)
-        // If the ship survives, it attacks player
     }
 
 });
